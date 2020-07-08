@@ -11,10 +11,8 @@
 #import <React/RCTLog.h>
 #import <React/RCTRootView.h>
 
-@import GoogleMobileAds;
-
 #define TIMEOUT_SECONDS 600
-#define TEXT_TO_LOOK_FOR @"Test Ad"
+#define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
 @interface ExampleTests : XCTestCase
 
@@ -53,12 +51,9 @@
     [[NSRunLoop mainRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
     foundElement = [self findSubviewInView:vc.view matching:^BOOL(UIView *view) {
-
-      if ([view isKindOfClass:[UILabel class]]) {
-        UILabel *label = (UILabel *)view;
-        return [label.text isEqualToString:TEXT_TO_LOOK_FOR];
+      if ([view.accessibilityLabel isEqualToString:TEXT_TO_LOOK_FOR]) {
+        return YES;
       }
-
       return NO;
     }];
   }

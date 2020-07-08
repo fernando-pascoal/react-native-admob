@@ -98,7 +98,7 @@
             [request setLocationWithLatitude:latitude longitude:longitude accuracy:accuracy];
         }
     }
-
+    
     [_bannerView loadRequest:request];
 }
 
