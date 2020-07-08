@@ -35,13 +35,13 @@ export default class Example extends Component {
     AdMobRewarded.setTestDevices([AdMobRewarded.simulatorId]);
     AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
 
-    AdMobRewarded.addEventListener('rewarded', reward =>
+    AdMobRewarded.addEventListener('rewarded', (reward) =>
       console.log('AdMobRewarded => rewarded', reward),
     );
     AdMobRewarded.addEventListener('adLoaded', () =>
       console.log('AdMobRewarded => adLoaded'),
     );
-    AdMobRewarded.addEventListener('adFailedToLoad', error =>
+    AdMobRewarded.addEventListener('adFailedToLoad', (error) =>
       console.warn(error),
     );
     AdMobRewarded.addEventListener('adOpened', () =>
@@ -52,13 +52,13 @@ export default class Example extends Component {
     );
     AdMobRewarded.addEventListener('adClosed', () => {
       console.log('AdMobRewarded => adClosed');
-      AdMobRewarded.requestAd().catch(error => console.warn(error));
+      AdMobRewarded.requestAd().catch((error) => console.warn(error));
     });
     AdMobRewarded.addEventListener('adLeftApplication', () =>
       console.log('AdMobRewarded => adLeftApplication'),
     );
 
-    AdMobRewarded.requestAd().catch(error => console.warn(error));
+    AdMobRewarded.requestAd().catch((error) => console.warn(error));
 
     AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
     AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
@@ -66,7 +66,7 @@ export default class Example extends Component {
     AdMobInterstitial.addEventListener('adLoaded', () =>
       console.log('AdMobInterstitial adLoaded'),
     );
-    AdMobInterstitial.addEventListener('adFailedToLoad', error =>
+    AdMobInterstitial.addEventListener('adFailedToLoad', (error) =>
       console.warn(error),
     );
     AdMobInterstitial.addEventListener('adOpened', () =>
@@ -74,13 +74,13 @@ export default class Example extends Component {
     );
     AdMobInterstitial.addEventListener('adClosed', () => {
       console.log('AdMobInterstitial => adClosed');
-      AdMobInterstitial.requestAd().catch(error => console.warn(error));
+      AdMobInterstitial.requestAd().catch((error) => console.warn(error));
     });
     AdMobInterstitial.addEventListener('adLeftApplication', () =>
       console.log('AdMobInterstitial => adLeftApplication'),
     );
 
-    AdMobInterstitial.requestAd().catch(error => console.warn(error));
+    AdMobInterstitial.requestAd().catch((error) => console.warn(error));
   }
 
   componentWillUnmount() {
@@ -89,11 +89,11 @@ export default class Example extends Component {
   }
 
   showRewarded() {
-    AdMobRewarded.showAd().catch(error => console.warn(error));
+    AdMobRewarded.showAd().catch((error) => console.warn(error));
   }
 
   showInterstitial() {
-    AdMobInterstitial.showAd().catch(error => console.warn(error));
+    AdMobInterstitial.showAd().catch((error) => console.warn(error));
   }
 
   render() {
@@ -104,7 +104,7 @@ export default class Example extends Component {
             <AdMobBanner
               adSize="banner"
               adUnitID="ca-app-pub-3940256099942544/2934735716"
-              ref={el => (this._basicExample = el)}
+              ref={(el) => (this._basicExample = el)}
             />
             <Button
               title="Reload"
@@ -115,7 +115,7 @@ export default class Example extends Component {
             <AdMobBanner
               adSize="smartBannerPortrait"
               adUnitID="ca-app-pub-3940256099942544/2934735716"
-              ref={el => (this._smartBannerExample = el)}
+              ref={(el) => (this._smartBannerExample = el)}
             />
             <Button
               title="Reload"
@@ -139,7 +139,16 @@ export default class Example extends Component {
               adSize="banner"
               validAdSizes={['banner', 'largeBanner', 'mediumRectangle']}
               adUnitID="/6499/example/APIDemo/AdSizes"
-              ref={el => (this._adSizesExample = el)}
+              ref={(el) => (this._adSizesExample = el)}
+              targeting={{
+                customTargeting: { group: 'users' },
+                categoryExclusions: ['media'],
+                gender: 'male',
+                birthday: new Date(1989, 6, 9),
+                childDirectedTreatment: true,
+                contentURL: 'admob://',
+                publisherProvidedID: 'abc123',
+              }}
             />
             <Button
               title="Reload"
@@ -152,17 +161,17 @@ export default class Example extends Component {
             <PublisherBanner
               style={{ height: 50 }}
               adUnitID="/6499/example/APIDemo/AppEvents"
-              onAdFailedToLoad={error => {
+              onAdFailedToLoad={(error) => {
                 console.warn(error);
               }}
-              onAppEvent={event => {
+              onAppEvent={(event) => {
                 if (event.name === 'color') {
                   this.setState({
                     appEventsExampleStyle: { backgroundColor: event.info },
                   });
                 }
               }}
-              ref={el => (this._appEventsExample = el)}
+              ref={(el) => (this._appEventsExample = el)}
             />
             <Button
               title="Reload"
@@ -179,14 +188,14 @@ export default class Example extends Component {
               <PublisherBanner
                 adSize="fluid"
                 adUnitID="/6499/example/APIDemo/Fluid"
-                ref={el => (this._appFluidAdSizeExample = el)}
+                ref={(el) => (this._appFluidAdSizeExample = el)}
                 style={{ flex: 1 }}
               />
             </View>
             <Button
               title="Change Banner Width"
               onPress={() =>
-                this.setState(prevState => ({
+                this.setState((prevState) => ({
                   fluidSizeIndex: prevState.fluidSizeIndex + 1,
                   fluidAdSizeExampleStyle: {
                     width:
